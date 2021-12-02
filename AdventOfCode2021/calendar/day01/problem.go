@@ -43,7 +43,7 @@ func calculateNumberOfIncreases(measurementString string) int {
 func part2() {
 	problem := readFile(inputFilePart1)
 
-	log.Printf("Day 01 part 2: Position of basement: %d", calculateNumberOfThreeMeasurementIncreases(problem))
+	log.Printf("Day 01 part 2: Number of Three sum measurement increases: %d", calculateNumberOfThreeMeasurementIncreases(problem))
 }
 
 func calculateNumberOfThreeMeasurementIncreases(measurementString string) int {
