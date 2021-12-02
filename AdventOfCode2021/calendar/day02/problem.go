@@ -13,7 +13,7 @@ const (
 
 func Run() {
 	part1()
-	//part2()
+	part2()
 }
 
 func part1() {
@@ -47,6 +47,46 @@ func calculateEndCoordinate(commandStrings []string) (x, y int) {
 			break
 		case direction.UP:
 			y -= command.Distance
+			break
+		}
+	}
+
+	return
+}
+
+func part2() {
+	problem := readFile(inputFilePart1)
+
+	log.Printf("Day 02 part 2: Calculated distance with aim: %d", solvePart2(problem))
+}
+
+func solvePart2(pathString string) int {
+	path := strings.Split(pathString, "\n")
+
+	x, y := calculateEndCoordinateWithAim(path)
+
+	return x * y
+}
+
+func calculateEndCoordinateWithAim(commandStrings []string) (x, y int) {
+	aim := 0
+
+	for _, commandString := range commandStrings {
+		command, err := direction.NewCommand(commandString)
+		if err != nil {
+			log.Fatalf("commandString is not valid, commandString: '%s', error: '%v'", commandString, err)
+		}
+
+		switch command.Direction {
+		case direction.FORWARD:
+			x += command.Distance
+			y += aim * command.Distance
+			break
+		case direction.DOWN:
+			aim += command.Distance
+			break
+		case direction.UP:
+			aim -= command.Distance
 			break
 		}
 	}
