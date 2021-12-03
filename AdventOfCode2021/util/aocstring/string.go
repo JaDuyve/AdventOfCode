@@ -1,6 +1,7 @@
 package aocstring
 
 import (
+	"io/ioutil"
 	"log"
 	"strconv"
 	"strings"
@@ -22,4 +23,14 @@ func SplitToIntArray(str string, delimiter string) []int {
 	}
 
 	return intArray
+}
+
+func ReadProblemString(filePath string) string {
+	content, err := ioutil.ReadFile(filePath)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return string(content)
 }
