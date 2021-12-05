@@ -20,8 +20,8 @@ Collect stars by solving puzzles. Two puzzles will be made available on each day
 |---|:---:|:---:|
 | ✔ Day 1: Sonar Sweeps | 🌟 | 🌟 |
 | ✔ Day 2: Dive!| 🌟 | 🌟 |
-| Day 3: Binary Diagnostic| 🌟 | |
-| [Day 4: TBD]()| | |
+| ✔ Day 3: Binary Diagnostic| 🌟 | 🌟 |
+| ✔ Day 4: Bingo | 🌟 | 🌟 |
 | [Day 5: TBD]()| | |
 | [Day 6: TBD]()| | |
 | [Day 7: TBD]()| | |
