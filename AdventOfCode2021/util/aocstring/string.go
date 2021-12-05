@@ -34,3 +34,18 @@ func ReadProblemString(filePath string) string {
 
 	return string(content)
 }
+
+func StringArrayToIntArray(strArray []string) []int {
+	intArray := make([]int, len(strArray))
+
+	for i, value := range strArray {
+		intValue, err := strconv.Atoi(value)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		intArray[i] = intValue
+	}
+
+	return intArray
+}
