@@ -24,7 +24,7 @@ Collect stars by solving puzzles. Two puzzles will be made available on each day
 | ✔ Day 4: Bingo | 🌟 | 🌟 |
 | Day 5: Hydrothermal Venture | | |
 | ✔ Day 6: Lanternfish | 🌟 | 🌟 |
-| [Day 7: TBD]()| | |
+| ✔ Day 7:  The Treachery of Whales | 🌟 | 🌟 |
 | [Day 8: TBD]()| | |
 | [Day 9: TBD]()| | |
 | [Day 10: TBD]()| | |
