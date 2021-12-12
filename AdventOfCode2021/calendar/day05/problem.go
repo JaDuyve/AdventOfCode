@@ -5,6 +5,7 @@ import (
 	"AdventOfCode2021/util/aocmath"
 	"AdventOfCode2021/util/aocstring"
 	"log"
+	"math"
 	"regexp"
 	"strings"
 )
@@ -73,7 +74,7 @@ func Run() {
 }
 
 func part1(problem string) {
-	log.Printf("Day 05 part 1: Hydrothermal Venture : %d", solvePart1(problem))
+	log.Printf("Day 05 part 1: Hydrothermal Venture : %d", SolvePart1Second(problem))
 }
 
 func solvePart1(problem string) int {
@@ -199,4 +200,74 @@ func ParseInput(problem string) []line {
 	}
 
 	return lines
+}
+
+func SolvePart1Second(problem string) int {
+	lines := ParseInput(problem)
+	maxX, maxY := GetDimensionsMap(lines)
+
+	mineMap := CreateMap(maxX, maxY)
+
+	for _, l := range lines {
+		applyLine(&mineMap, l)
+	}
+
+	return countIntersections(&mineMap)
+}
+
+func countIntersections(mineMap *[][]int) int {
+	counter := 0
+
+	for i := 0; i < len(*mineMap); i++ {
+		for j := 0; j < len((*mineMap)[0]); j++ {
+			if (*mineMap)[i][j] > 1 {
+				counter++
+			}
+		}
+	}
+
+	return counter
+}
+
+func applyLine(mineMap *[][]int, l line) {
+	dir := l.direction()
+
+	switch dir {
+	case HORIZONTAL:
+		for i := l.minX(); i < l.maxX(); i++ {
+			(*mineMap)[l.a.y][i]++
+		}
+		break
+	case VERTICAL:
+		for i := l.minY(); i < l.maxY(); i++ {
+			(*mineMap)[i][l.a.x]++
+		}
+		break
+	}
+}
+
+func CreateMap(maxX, maxY int) [][]int {
+	mineMap := make([][]int, maxY)
+
+	for i := 0; i < maxX; i++ {
+		mineMap[i] = make([]int, maxX, maxX)
+	}
+
+	return mineMap
+}
+
+func GetDimensionsMap(lines []line) (maxX, maxY int) {
+
+	maxX = math.MinInt
+	maxY = math.MinInt
+
+	for _, line := range lines {
+		maxX = aocmath.Max(maxX, line.maxX())
+		maxY = aocmath.Max(maxY, line.maxY())
+	}
+
+	maxX++
+	maxY++
+
+	return
 }

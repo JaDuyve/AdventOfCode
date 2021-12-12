@@ -49,3 +49,26 @@ func StringArrayToIntArray(strArray []string) []int {
 
 	return intArray
 }
+
+func ContainsChar(str string, c byte) bool {
+	for _, l := range str {
+		if byte(l) == c {
+			return true
+		}
+	}
+
+	return false
+}
+
+func Reverse(input []string) []string {
+	inputLen := len(input)
+	output := make([]string, inputLen)
+
+	for i, n := range input {
+		j := inputLen - i - 1
+
+		output[j] = n
+	}
+
+	return output
+}
