@@ -8,6 +8,7 @@ import (
 	"AdventOfCode2021/calendar/day06"
 	"AdventOfCode2021/calendar/day07"
 	"AdventOfCode2021/calendar/day08"
+	"AdventOfCode2021/calendar/day09"
 )
 
 func main() {
@@ -19,4 +20,5 @@ func main() {
 	day06.Run()
 	day07.Run()
 	day08.Run()
+	day09.Run()
 }
