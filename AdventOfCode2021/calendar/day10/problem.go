@@ -2,12 +2,13 @@ package day10
 
 import (
 	"AdventOfCode2021/util/aocstring"
+	"AdventOfCode2021/util/stack"
 	"log"
 	"strings"
 )
 
 const (
-	inputFile = "calendar/day09/input"
+	inputFile = "calendar/day10/input"
 )
 
 var opposites = map[byte]byte{
@@ -24,7 +25,7 @@ func Run() {
 }
 
 func part1(problem string) {
-	log.Printf("Day 09 part 1: Smoke Basin: %d", solvePart1(problem))
+	log.Printf("Day 10 part 1: Syntax Scoring: %d", solvePart1(problem))
 }
 
 func solvePart1(problem string) int {
@@ -64,51 +65,29 @@ func filterSyntaxErrors(subsystem []string) {
 }
 
 func isChunkValid(chunk string) (bool, byte) {
-	freq := map[byte]int{
-		'(': 0,
-		'[': 0,
-		'{': 0,
-		'<': 0,
-	}
+	st := new(stack.Stack)
+
+	beginBrackets := make(map[byte]struct{})
+	beginBrackets['('] = struct{}{}
+	beginBrackets['{'] = struct{}{}
+	beginBrackets['['] = struct{}{}
+	beginBrackets['<'] = struct{}{}
 
 	for _, c := range chunk {
 		bc := byte(c)
-		if bc == '(' {
-			freq['(']++
-		} else if bc == ')' && freq['('] == 0 {
-			return false, ')'
-		} else if bc == ')' {
-			freq['(']--
-		}
 
-		if bc == '[' {
-			freq['[']++
-		} else if bc == ']' && freq['['] == 0 {
-			return false, ']'
-		} else if bc == ']' {
-			freq['[']--
-		}
+		if _, ok := beginBrackets[bc]; ok {
+			st.Push(bc)
+		} else {
+			d, k := st.Pop()
 
-		if bc == '{' {
-			freq['{']++
-		} else if bc == '}' && freq['{'] == 0 {
-			return false, '}'
-		} else if bc == '}' {
-			freq['{']--
-		}
+			if !k {
+				return false, bc
+			}
 
-		if bc == '<' {
-			freq['<']++
-		} else if bc == '>' && freq['<'] == 0 {
-			return false, '>'
-		} else if bc == '>' {
-			freq['<']--
-		}
-	}
-
-	for key, value := range freq {
-		if value != 0 {
-			return false, opposites[key]
+			if bc != opposites[d] {
+				return false, bc
+			}
 		}
 	}
 
