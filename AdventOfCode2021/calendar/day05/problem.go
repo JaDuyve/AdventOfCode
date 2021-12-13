@@ -206,7 +206,9 @@ func SolvePart1Second(problem string) int {
 	lines := ParseInput(problem)
 	maxX, maxY := GetDimensionsMap(lines)
 
-	mineMap := CreateMap(maxX, maxY)
+	max := aocmath.Max(maxX, maxY)
+
+	mineMap := CreateMap(max, max)
 
 	for _, l := range lines {
 		applyLine(&mineMap, l)
