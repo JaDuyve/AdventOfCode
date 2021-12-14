@@ -10,6 +10,7 @@ import (
 	"AdventOfCode2021/calendar/day08"
 	"AdventOfCode2021/calendar/day09"
 	"AdventOfCode2021/calendar/day10"
+	"AdventOfCode2021/calendar/day11"
 )
 
 func main() {
@@ -23,4 +24,5 @@ func main() {
 	day08.Run()
 	day09.Run()
 	day10.Run()
+	day11.Run()
 }
