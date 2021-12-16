@@ -31,7 +31,7 @@ Collect stars by solving puzzles. Two puzzles will be made available on each day
 | ✔ Day 11: Dumbo Octopus | 🌟 | 🌟 |
 | [Day 12: TBD]()| | |
 | [Day 13: TBD]()| | |
-| [Day 14: TBD]()| | |
+| ✔ Day 14: Extended Polymerization | 🌟 | 🌟 |
 | [Day 15: TBD]()| | |
 | [Day 16: TBD]()| | |
 | [Day 17: TBD]()| | |

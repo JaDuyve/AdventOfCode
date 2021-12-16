@@ -2,19 +2,21 @@ package day14
 
 import (
 	"AdventOfCode2021/util/aocmath"
-	"fmt"
 	"math"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
 var expr = regexp.MustCompile("\\w+")
 
 type Polymer struct {
-	Template string
-	rules    map[string]string
-	freq     map[string]int
-	maxSteps int
+	Template   string
+	rules      map[string]string
+	freq       map[string]int
+	maxSteps   int
+	history    map[string]map[string]int
+	iterations int
 }
 
 func New(problem string, maxSteps int) *Polymer {
@@ -29,35 +31,64 @@ func New(problem string, maxSteps int) *Polymer {
 		rules[values[0]] = values[1]
 	}
 
+	template := s[0]
+	freq := make(map[string]int)
+
+	for i := range template {
+		freq[template[i:i+1]]++
+	}
+
 	return &Polymer{
-		s[0],
+		template,
 		rules,
-		make(map[string]int),
+		freq,
 		maxSteps,
+		make(map[string]map[string]int),
+		0,
 	}
 }
 
 func (p *Polymer) ApplySteps() {
-	begin := string(p.Template[0])
-	fmt.Print(begin)
-	for i := 0; i < len(p.Template)-2; i++ {
+	for i := 0; i < len(p.Template)-1; i++ {
 		p.applyStepsRec(0, p.Template[i:i+2])
-		second := string(p.Template[i+2])
-		fmt.Print(second)
 	}
 }
 
-func (p *Polymer) applyStepsRec(depth int, pair string) {
+func (p *Polymer) applyStepsRec(depth int, pair string) map[string]int {
 	if depth == p.maxSteps {
-		return
+		return make(map[string]int)
+	}
+	p.iterations++
+
+	historyKey := strconv.Itoa(depth) + pair
+	if value, ok := p.history[historyKey]; ok {
+		for key, v := range value {
+			p.freq[key] += v
+		}
+		return value
 	}
 
 	middle := p.rules[pair]
 	p.freq[middle]++
 
-	p.applyStepsRec(depth+1, string(pair[0])+middle)
-	fmt.Printf(middle)
-	p.applyStepsRec(depth+1, middle+string(pair[1]))
+	left := p.applyStepsRec(depth+1, string(pair[0])+middle)
+	right := p.applyStepsRec(depth+1, middle+string(pair[1]))
+
+	sum := make(map[string]int)
+
+	for key, value := range left {
+		sum[key] += value
+	}
+
+	for key, value := range right {
+		sum[key] += value
+	}
+
+	sum[middle]++
+
+	p.history[historyKey] = sum
+
+	return sum
 }
 
 func (p Polymer) GetMinMaxDifference() int {
