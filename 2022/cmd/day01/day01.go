@@ -4,6 +4,7 @@ import (
 	"aoc/internal/utils"
 	"log"
 	"os"
+	"sort"
 )
 
 func main() {
@@ -20,10 +21,23 @@ func main() {
 
 // part one
 func part1(input string) int {
-	return 0
+	elfCalories := utils.SplitToIntGroups(input, "\n\n", "\n")
+	sums := make([]int, len(elfCalories))
+	for i, a := range elfCalories {
+		sums[i] = utils.Sum[int](a)
+	}
+
+	return utils.Max(sums)
 }
 
 // part two
 func part2(input string) int {
-	return 0
+	elfCalories := utils.SplitToIntGroups(input, "\n\n", "\n")
+	sums := make([]int, len(elfCalories))
+	for i, a := range elfCalories {
+		sums[i] = utils.Sum[int](a)
+	}
+
+	sort.Ints(sums)
+	return sums[len(sums)-1] + sums[len(sums)-2] + sums[len(sums)-3]
 }

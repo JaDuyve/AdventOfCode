@@ -5,14 +5,14 @@ import (
 	"os"
 )
 
-func WriteFile(path string, data []byte) error {
+func WriteFile(path string, data string) error {
 	f, err := os.Create(path)
 	if err != nil {
 		fmt.Println(err)
 	}
 	defer f.Close()
 
-	_, err = f.Write(data)
+	_, err = f.WriteString(data)
 	if err != nil {
 		return err
 	}

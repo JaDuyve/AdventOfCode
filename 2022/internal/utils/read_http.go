@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 )
 
 func ReadHTTP(year, day int, session string) (string, error) {
@@ -39,10 +40,11 @@ func ReadHTTP(year, day int, session string) (string, error) {
 		return "", fmt.Errorf(string(bodyBytes))
 	}
 
-	err = WriteFile(path, bodyBytes)
+	body := strings.TrimSpace(string(bodyBytes))
+	err = WriteFile(path, body)
 	if err != nil {
 		return "", err
 	}
 
-	return string(bodyBytes), nil
+	return body, nil
 }
