@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"sort"
+	"time"
 )
 
 func main() {
@@ -14,9 +15,16 @@ func main() {
 	}
 
 	log.Println("--- Part One ---")
-	log.Println("Result:", part1(input))
+	startTime := time.Now().Local()
+	res1 := part1(input)
+	ms := time.Since(startTime).Milliseconds()
+	log.Printf("Result: %d in %dms\n", res1, ms)
+
 	log.Println("--- Part Two ---")
-	log.Println("Result:", part2(input))
+	startTime = time.Now().Local()
+	res2 := part2(input)
+	ms = time.Since(startTime).Milliseconds()
+	log.Printf("Result: %d in %dms\n", res2, ms)
 }
 
 // part one

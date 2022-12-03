@@ -1,34 +1,31 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"os"
+	"time"
 
 	"aoc/internal/utils"
 )
 
 func main() {
-	// read form file
-	input, err := utils.ReadFile("resources/dayXX.txt")
+	session := os.Getenv("AOC_SESSION")
+	input, err := utils.ReadHTTP(2022, 01, session)
 	if err != nil {
-		fmt.Println(err)
-		os.Exit(0)
+		log.Fatal(err)
 	}
 
-	// // read from http request
-	// session := os.Getenv("AOC_SESSION")
-	// input, err := utils.ReadHTTP(2021, 1, session)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// 	os.Exit(0)
-	// }
+	log.Println("--- Part One ---")
+	startTime := time.Now().Local()
+	res1 := part1(input)
+	ms := time.Since(startTime).Milliseconds()
+	log.Printf("Result: %d in %dms\n", res1, ms)
 
-	fmt.Println("--- Part One ---")
-	fmt.Println("Result:", part1(input))
-	fmt.Println("--- Part Two ---")
-	fmt.Println("Result:", part2(input))
-
-	os.Exit(0)
+	log.Println("--- Part Two ---")
+	startTime = time.Now().Local()
+	res2 := part2(input)
+	ms = time.Since(startTime).Milliseconds()
+	log.Printf("Result: %d in %dms\n", res2, ms)
 }
 
 // part one
