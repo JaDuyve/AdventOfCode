@@ -6,3 +6,4 @@ This repository contains all my personal solutions for [AdventOfCode](https://ad
 
 * [2020](https://github.com/JaDuyve/AdventOfCode/tree/main/AdventOfCode2020)
 * [2021](https://github.com/JaDuyve/AdventOfCode/tree/main/AdventOfCode2021)
+* [2022](https://github.com/JaDuyve/AdventOfCode/tree/main/2022)
