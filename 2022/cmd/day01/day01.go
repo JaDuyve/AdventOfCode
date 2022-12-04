@@ -32,7 +32,7 @@ func part1(input string) int {
 	elfCalories := utils.SplitToIntGroups(input, "\n\n", "\n")
 	sums := make([]int, len(elfCalories))
 	for i, a := range elfCalories {
-		sums[i] = utils.Sum[int](a)
+		sums[i] = utils.Sum(a)
 	}
 
 	return utils.Max(sums)

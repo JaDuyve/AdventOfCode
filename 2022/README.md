@@ -15,7 +15,7 @@ Collect stars by solving puzzles. Two puzzles will be made available on each day
 | [✔ Day 1: Calorie Counting](https://adventofcode.com/2022/day/1)| 🌟 | 🌟|
 | [✔ Day 2: Rock Paper Scissors](https://adventofcode.com/2022/day/1)| 🌟 | 🌟|
 | [✔ Day 3: Rucksack Reorganization](https://adventofcode.com/2022/day/1)| 🌟 | 🌟|
-| [Day 4: TBD]()| | |
+| [✔ Day 4: Camp Cleanup](https://adventofcode.com/2022/day/1)| 🌟 | 🌟|
 | [Day 5: TBD]()| | |
 | [Day 6: TBD]()| | |
 | [Day 7: TBD]()| | |

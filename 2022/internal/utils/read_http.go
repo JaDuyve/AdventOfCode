@@ -2,7 +2,7 @@ package utils
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"strings"
@@ -34,7 +34,7 @@ func ReadHTTP(year, day int, session string) (string, error) {
 	}
 	defer resp.Body.Close()
 
-	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	bodyBytes, err := io.ReadAll(resp.Body)
 
 	if resp.StatusCode != http.StatusOK {
 		return "", fmt.Errorf(string(bodyBytes))
