@@ -40,7 +40,7 @@ func ReadHTTP(year, day int, session string) (string, error) {
 		return "", fmt.Errorf(string(bodyBytes))
 	}
 
-	body := strings.TrimSpace(string(bodyBytes))
+	body := strings.Trim(string(bodyBytes), "\n")
 	err = WriteFile(path, body)
 	if err != nil {
 		return "", err

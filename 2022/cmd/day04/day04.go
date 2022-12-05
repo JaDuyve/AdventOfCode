@@ -58,8 +58,8 @@ func part2(input string) int {
 	return count
 }
 
-func ParseLine(data string) utils.Tuple[[]int] {
-	t := utils.Tuple[[]int]{
+func ParseLine(data string) utils.Tuple[[]int, []int] {
+	t := utils.Tuple[[]int, []int]{
 		A: make([]int, 2),
 		B: make([]int, 2),
 	}

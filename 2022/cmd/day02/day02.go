@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strings"
 	"time"
 
 	"aoc/internal/utils"
@@ -67,7 +66,7 @@ func main() {
 
 // part one
 func part1(input string) int {
-	rounds := parseToRounds(input)
+	rounds := utils.SplitTo(input, "\n", ParseLine)
 	score := 0
 
 	for _, round := range rounds {
@@ -80,7 +79,7 @@ func part1(input string) int {
 
 // part two
 func part2(input string) int {
-	rounds := parseToRounds(input)
+	rounds := utils.SplitTo(input, "\n", ParseLine)
 	score := 0
 
 	for _, round := range rounds {
@@ -93,18 +92,12 @@ func part2(input string) int {
 	return score
 }
 
-func parseToRounds(input string) []Round {
-	roundStrings := strings.Split(input, "\n")
-
-	rounds := make([]Round, len(roundStrings))
-
-	for i, val := range roundStrings {
-		round := Round{}
-		_, err := fmt.Sscanf(val, "%s %s", &round.playerA, &round.playerB)
-		if err != nil {
-			log.Fatal(err)
-		}
-		rounds[i] = round
+func ParseLine(line string) Round {
+	round := Round{}
+	_, err := fmt.Sscanf(line, "%s %s", &round.playerA, &round.playerB)
+	if err != nil {
+		log.Fatal(err)
 	}
-	return rounds
+
+	return round
 }

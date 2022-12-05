@@ -35,7 +35,7 @@ func part1(input string) int {
 		sums[i] = utils.Sum(a)
 	}
 
-	return utils.Max(sums)
+	return utils.MaxArr(sums)
 }
 
 // part two
