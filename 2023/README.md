@@ -12,8 +12,8 @@ Collect stars by solving puzzles. Two puzzles will be made available on each day
 
 | Day  | Part One | Part Two |
 |---|:---:|:---:|
-| [✔ Day 01: Trebuchet?!](https://adventofcode.com/2023/day/01)| 🌟 | 🌟|
-| [Day 02: TBD]()| | |
+| [✔ Day 01: Trebuchet?!](https://adventofcode.com/2023/day/1)| 🌟 | 🌟|
+| [✔ Day 02: Cube Conundrum](https://adventofcode.com/2023/day/2)| 🌟 | 🌟|
 | [Day 03: TBD]()| | |
 | [Day 04: TBD]()| | |
 | [Day 05: TBD]()| | |

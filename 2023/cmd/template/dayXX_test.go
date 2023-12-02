@@ -5,10 +5,10 @@ import (
 )
 
 func TestDayXX(t *testing.T) {
-	input := ""
+	const input string = ""
 
 	t.Run("part 1", func(t *testing.T) {
-		expected := 0
+		const expected int = 0
 		actual := part1(input)
 
 		if actual != expected {
@@ -17,7 +17,7 @@ func TestDayXX(t *testing.T) {
 	})
 
 	t.Run("part 2", func(t *testing.T) {
-		expected := 0
+		const expected int = 0
 		actual := part2(input)
 
 		if actual != expected {

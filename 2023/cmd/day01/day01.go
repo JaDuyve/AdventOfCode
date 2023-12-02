@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-var numberRegex, _ = regexp.Compile("[a-zA-Z]")
+var numberRegex = regexp.MustCompile("[a-zA-Z]")
 
 func main() {
 	input, err := utils.ReadHTTP(2023, 01, os.Getenv("AOC_SESSION"))

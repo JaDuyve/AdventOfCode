@@ -10,7 +10,7 @@ import (
 
 func main() {
 	session := os.Getenv("AOC_SESSION")
-	input, err := utils.ReadHTTP(2022, 01, session)
+	input, err := utils.ReadHTTP(2023, 01, session)
 	if err != nil {
 		log.Fatal(err)
 	}
