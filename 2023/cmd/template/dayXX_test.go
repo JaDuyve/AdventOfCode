@@ -12,7 +12,7 @@ func TestDayXX(t *testing.T) {
 		actual := part1(input)
 
 		if actual != expected {
-			t.Errorf("expected: %d , actual: %d", expected, actual)
+			t.Errorf("expected: %d, actual: %d", expected, actual)
 		}
 	})
 
@@ -21,7 +21,7 @@ func TestDayXX(t *testing.T) {
 		actual := part2(input)
 
 		if actual != expected {
-			t.Errorf("expected: %d , actual: %d", expected, actual)
+			t.Errorf("expected: %d, actual: %d", expected, actual)
 		}
 	})
 }
