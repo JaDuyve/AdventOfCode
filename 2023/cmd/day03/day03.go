@@ -54,7 +54,30 @@ func part1(input string) int {
 
 // part two
 func part2(input string) int {
-	return 0
+	grid := strings.Split(input, "\n")
+	sum := 0
+
+	for i := 0; i < len(grid); i++ {
+		for j := 0; j < len(grid[i]); j++ {
+			if isGearSymbol(grid[i][j]) == false {
+				continue
+			}
+
+			numbers := getAllAttachedNumbers(j, i, &grid)
+
+			if len(numbers) < 2 {
+				continue
+			}
+
+			for n := 0; n < len(numbers); n++ {
+				for m := n + 1; m < len(numbers); m++ {
+					sum += numbers[n] * numbers[m]
+				}
+			}
+		}
+	}
+
+	return sum
 }
 
 func isDigit(ch uint8) bool {
@@ -63,6 +86,37 @@ func isDigit(ch uint8) bool {
 
 func isSymbol(ch uint8) bool {
 	return !isDigit(ch) && ch != '.'
+}
+
+func isGearSymbol(ch uint8) bool {
+	return ch == '*'
+}
+
+func getAllAttachedNumbers(x, y int, grid *[]string) []int {
+	sby := utils.Max(y-1, 0)
+	sbx := utils.Max(x-1, 0)
+	eby := utils.Min(y+1, len(*grid)-1)
+	ebx := utils.Min(x+1, len((*grid)[0])-1)
+	numbers := make([]int, 0)
+	coordinates := make(map[int]struct{})
+
+	for i := sby; i <= eby; i++ {
+		for j := sbx; j <= ebx; j++ {
+			if isDigit((*grid)[i][j]) {
+				sx, ex := getEntireNumberForCoordinates(j, i, grid)
+
+				number := utils.ParseInt((*grid)[i][sx : ex+1])
+				if _, ok := coordinates[number]; ok {
+					continue
+				}
+
+				coordinates[number] = struct{}{}
+				numbers = append(numbers, number)
+			}
+		}
+	}
+
+	return numbers
 }
 
 func isNextToSymbol(sy, sx, ey, ex int, grid *[]string) bool {
@@ -79,4 +133,27 @@ func isNextToSymbol(sy, sx, ey, ex int, grid *[]string) bool {
 		}
 	}
 	return false
+}
+
+func getEntireNumberForCoordinates(x, y int, grid *[]string) (sx, ex int) {
+	startX := x
+	endX := x
+
+	for i := x; i >= 0; i-- {
+		if isDigit((*grid)[y][i]) {
+			startX = i
+		} else {
+			i = -1
+		}
+	}
+
+	for i := x; i < len((*grid)[y]); i++ {
+		if isDigit((*grid)[y][i]) {
+			endX = i
+		} else {
+			i = len((*grid)[y])
+		}
+	}
+
+	return startX, endX
 }
