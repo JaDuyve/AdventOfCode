@@ -31,7 +31,6 @@ func main() {
 // part one
 func part1(input string) int {
 	grid := strings.Split(input, "\n")
-	//grid2 := grid
 	sum := 0
 
 	for i := 0; i < len(grid); i++ {
