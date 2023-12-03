@@ -18,14 +18,14 @@ func main() {
 	log.Println("--- Part One ---")
 	startTime := time.Now().Local()
 	res1 := part1(input)
-	ms := time.Since(startTime).Milliseconds()
-	log.Printf("Result: %d in %dms\n", res1, ms)
+	ms := time.Since(startTime).Microseconds()
+	log.Printf("Result: %d in %dμs\n", res1, ms)
 
 	log.Println("--- Part Two ---")
 	startTime = time.Now().Local()
 	res2 := part2(input)
-	ms = time.Since(startTime).Milliseconds()
-	log.Printf("Result: %d in %dms\n", res2, ms)
+	ms = time.Since(startTime).Microseconds()
+	log.Printf("Result: %d in %dμs\n", res2, ms)
 }
 
 // part one
