@@ -34,17 +34,15 @@ func part1(input string) int {
 	sum := 0
 
 	for i := 0; i < len(grid); i++ {
-		startIndexNumber := -1
 		for j := 0; j < len(grid[i]); j++ {
-			if startIndexNumber == -1 && isDigit(grid[i][j]) {
-				startIndexNumber = j
+			if isSymbol(grid[i][j]) == false {
+				continue
 			}
 
-			if startIndexNumber != -1 && (j+1 == len(grid[i]) || isDigit(grid[i][j+1]) == false) {
-				if isNextToSymbol(i, startIndexNumber, i, j, &grid) {
-					sum += utils.ParseInt(grid[i][startIndexNumber : j+1])
-				}
-				startIndexNumber = -1
+			numbers := getAllAttachedNumbers(j, i, &grid)
+
+			for n := 0; n < len(numbers); n++ {
+				sum += numbers[n]
 			}
 		}
 	}
@@ -117,22 +115,6 @@ func getAllAttachedNumbers(x, y int, grid *[]string) []int {
 	}
 
 	return numbers
-}
-
-func isNextToSymbol(sy, sx, ey, ex int, grid *[]string) bool {
-	sby := utils.Max(sy-1, 0)
-	sbx := utils.Max(sx-1, 0)
-	eby := utils.Min(ey+1, len(*grid)-1)
-	ebx := utils.Min(ex+1, len((*grid)[0])-1)
-
-	for i := sby; i <= eby; i++ {
-		for j := sbx; j <= ebx; j++ {
-			if isSymbol((*grid)[i][j]) {
-				return true
-			}
-		}
-	}
-	return false
 }
 
 func getEntireNumberForCoordinates(x, y int, grid *[]string) (sx, ex int) {
