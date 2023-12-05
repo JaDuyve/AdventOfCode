@@ -49,7 +49,7 @@ humidity-to-location map:
 	})
 
 	t.Run("part 2", func(t *testing.T) {
-		const expected int = 0
+		const expected int = 46
 		actual := part2(input)
 
 		if actual != expected {
