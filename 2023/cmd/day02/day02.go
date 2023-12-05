@@ -26,14 +26,14 @@ func main() {
 	log.Println("--- Part One ---")
 	startTime := time.Now().Local()
 	res1 := part1(input)
-	ms := time.Since(startTime).Microseconds()
-	log.Printf("Result: %d in %dμs\n", res1, ms)
+	us := time.Since(startTime).Microseconds()
+	log.Printf("Result: %d in %dμs\n", res1, us)
 
 	log.Println("--- Part Two ---")
 	startTime = time.Now().Local()
 	res2 := part2(input)
-	ms = time.Since(startTime).Microseconds()
-	log.Printf("Result: %d in %dμs\n", res2, ms)
+	us = time.Since(startTime).Microseconds()
+	log.Printf("Result: %d in %dμs\n", res2, us)
 }
 
 type Game struct {
