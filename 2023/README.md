@@ -16,7 +16,7 @@ Collect stars by solving puzzles. Two puzzles will be made available on each day
 | [✔ Day 02: Cube Conundrum](https://adventofcode.com/2023/day/2)| 🌟 | 🌟 |
 | [✔ day 03: Gear Ratios](https://adventofcode.com/2023/day/3)| 🌟 | 🌟 |
 | [✔ Day 04: Scratchcards](https://adventofcode.com/2023/day/4)| 🌟 | 🌟 |
-| [Day 05: TBD]()| | |
+| [Day 05: If You Give A Seed A Fertilizer](https://adventofcode.com/2023/day/5)| 🌟 | |
 | [Day 06: TBD]()| | |
 | [Day 07: TBD]()| | |
 | [Day 08: TBD]()| | |
