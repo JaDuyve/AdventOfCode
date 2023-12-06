@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"aoc/internal/utils"
@@ -57,5 +58,27 @@ func part1(input string) int {
 
 // part two
 func part2(input string) int {
-	return 0
+	groups := utils.SplitToStringGroups(input, "\n", ":")
+
+	times := utils.SplitToIgnoreSpace[int](strings.ReplaceAll(groups[0][1], " ", ""), " ", utils.ParseInt)
+	distances := utils.SplitToIgnoreSpace[int](strings.ReplaceAll(groups[1][1], " ", ""), " ", utils.ParseInt)
+
+	factor := 1
+
+	for i := 0; i < len(times); i++ {
+		count := 0
+		time := times[i]
+		recordDistance := distances[i]
+
+		for j := 1; j < time; j++ {
+			distance := j * (time - j)
+			if distance > recordDistance {
+				count++
+			}
+		}
+
+		factor *= count
+	}
+
+	return factor
 }

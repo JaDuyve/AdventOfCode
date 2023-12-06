@@ -17,7 +17,7 @@ func TestDay06(t *testing.T) {
 	})
 
 	t.Run("part 2", func(t *testing.T) {
-		const expected int = 0
+		const expected int = 71503
 		actual := part2(input)
 
 		if actual != expected {
