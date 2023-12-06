@@ -16,6 +16,21 @@ func SplitTo[T any](data, sep string, parseFunc func(string) T) []T {
 	return numberArr
 }
 
+func SplitToIgnoreSpace[T any](data, sep string, parseFunc func(string) T) []T {
+	group := strings.Split(data, sep)
+
+	var numberArr []T
+	for _, item := range group {
+		trimmedItem := strings.TrimSpace(item)
+		if trimmedItem == "" {
+			continue
+		}
+
+		numberArr = append(numberArr, parseFunc(trimmedItem))
+	}
+	return numberArr
+}
+
 func SplitToIntGroups(data, sep, secondSep string) [][]int {
 	return SplitToGroups(data, sep, secondSep, ParseInt)
 }
