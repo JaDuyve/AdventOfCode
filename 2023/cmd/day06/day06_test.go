@@ -24,4 +24,13 @@ func TestDay06(t *testing.T) {
 			t.Errorf("expected: %d, actual: %d", expected, actual)
 		}
 	})
+
+	t.Run("part 2 optimized", func(t *testing.T) {
+		const expected int = 71503
+		actual := part2Optimized(input)
+
+		if actual != expected {
+			t.Errorf("expected: %d, actual: %d", expected, actual)
+		}
+	})
 }
