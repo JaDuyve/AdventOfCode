@@ -2,12 +2,23 @@ package main
 
 import (
 	"log"
+	"math"
 	"os"
 	"slices"
 	"sort"
 	"time"
 
 	"aoc/internal/utils"
+)
+
+const (
+	HIGH_CARD     = -1
+	ONE_PAIR      = 0
+	TWO_PAIR      = 1
+	THREE_OF_KIND = 2
+	FULL_HOUSE    = 3
+	FOUR_OF_KIND  = 4
+	FIVE_OF_KIND  = 5
 )
 
 func main() {
@@ -102,37 +113,60 @@ func CalcHandValue2(cards string) int {
 		score[scoreIndex]++
 	}
 
-	jcount := score[0]
+	if score[0] > 0 {
+		jcount := score[0]
+
+		max := math.MinInt
+		max2 := math.MinInt
+		index := -1
+		index2 := -1
+		for i := 0; i < len(score); i++ {
+			if max < score[i] {
+				index2 = index
+				index = i
+				max = score[i]
+			} else if max2 < score[i] {
+				index2 = i
+				max2 = score[i]
+			}
+		}
+
+		if index != 0 {
+			score[index] += jcount
+		} else {
+			score[index2] += jcount
+		}
+
+		score[0] = 0
+	}
 
 	sort.Ints(score)
 
-	score[len(score)-1] += jcount
-
 	if score[13] == 5 {
-		return 5
+		return FIVE_OF_KIND
 	}
 
 	if score[13] == 4 {
-		return 4
+		return FOUR_OF_KIND
 	}
 
 	if score[13] == 3 && score[12] == 2 {
-		return 3
+		return FULL_HOUSE
 	}
 
 	if score[13] == 3 && score[12] == 1 {
-		return 2
+		return THREE_OF_KIND
 	}
 
 	if score[13] == 2 && score[12] == 2 {
-		return 1
+		return TWO_PAIR
 	}
 
 	if score[13] == 2 && score[12] == 1 {
-		return 0
+		return ONE_PAIR
 	}
 
-	return -1
+	return HIGH_CARD
 }
 
 func CalcHandValue(cards string) int {
@@ -243,6 +277,8 @@ func part2(input string) int {
 
 	for i := 0; i < len(hands); i++ {
 		sum += hands[i].Bid * (i + 1)
+		//log.Printf("Cards: %s, Bid: %d\n", hands[i].Cards, hands[i].Bid)
+
 	}
 
 	return sum
