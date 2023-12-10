@@ -5,9 +5,9 @@ func Remove[T any](s []T, i int) []T {
 	return s[:len(s)-1]
 }
 
-func Any[T any](s []T, fn func(int) bool) bool {
+func Any[T any](s []T, fn func(T) bool) bool {
 	for i := 0; i < len(s); i++ {
-		if fn(i) {
+		if fn(s[i]) {
 			return true
 		}
 	}

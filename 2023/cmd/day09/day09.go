@@ -41,7 +41,7 @@ func part1(input string) int {
 
 func calcHistoryValue(history []int) int {
 	comp := func(i int) bool {
-		return history[i] != 0
+		return i != 0
 	}
 
 	count := 0
@@ -63,5 +63,33 @@ func calcHistoryValue(history []int) int {
 
 // part two
 func part2(input string) int {
-	return 0
+	histories := utils.SplitToIntGroups(input, "\n", " ")
+
+	sum := 0
+	for i := 0; i < len(histories); i++ {
+		sum += calcHistoryValue2(histories[i])
+	}
+	return sum
+}
+
+func calcHistoryValue2(history []int) int {
+	comp := func(i int) bool {
+		return i != 0
+	}
+
+	count := 0
+	for utils.Any(history[count:], comp) {
+		for i := len(history) - 2; i >= count; i-- {
+			history[i+1] = history[i+1] - history[i]
+		}
+
+		count++
+	}
+
+	sum := 0
+	for i := count - 1; i >= 0; i-- {
+		sum = history[i] - sum
+	}
+
+	return sum
 }
