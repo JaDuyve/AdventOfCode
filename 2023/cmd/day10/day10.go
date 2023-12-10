@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -48,18 +49,6 @@ func calcLoopCount(sx, sy int, maze *[]string) int {
 	x := sx
 	y := sy
 	for (*maze)[y][x] != 'S' || count == 0 {
-		//if x < 0 || y < 0 || y >= len(*maze) || x >= len((*maze)[y]) {
-		//	return 0
-		//}
-		//
-		//if (*maze)[y][x] == '.' {
-		//	return 0
-		//}
-		//
-		//if isPossible(px, py, x, y, maze) == false {
-		//	return 0
-		//}
-
 		count++
 		pipe := (*maze)[y][x]
 		tmpx := x
@@ -71,94 +60,6 @@ func calcLoopCount(sx, sy int, maze *[]string) int {
 	}
 
 	return count
-}
-
-func isPossible(x, y, nx, ny int, maze *[]string) bool {
-	if x == -1 || y == -1 {
-		return true
-	}
-
-	currentPipe := (*maze)[y][x]
-	nextPipe := (*maze)[ny][nx]
-
-	switch currentPipe {
-	case '|':
-		if nextPipe == '-' {
-			return false
-		}
-
-		if (nextPipe == '|' || nextPipe == 'F' || nextPipe == '7') && y > ny {
-			return true
-		}
-
-		if (nextPipe == '|' || nextPipe == 'J' || nextPipe == 'L') && y < ny {
-			return true
-		}
-
-		return false
-		break
-	case '-':
-		if nextPipe == '|' {
-			return false
-		}
-
-		if (nextPipe == '-' || nextPipe == '7' || nextPipe == 'J') && x < nx {
-			return true
-		}
-
-		if (nextPipe == '-' || nextPipe == 'F' || nextPipe == 'L') && x > nx {
-			return true
-		}
-
-		return false
-		break
-	case 'L':
-		if (nextPipe == '|' || nextPipe == 'F' || nextPipe == '7') && y > ny {
-			return true
-		}
-
-		if (nextPipe == '-' || nextPipe == '7' || nextPipe == 'J') && x < nx {
-			return true
-		}
-
-		return false
-		break
-	case 'J':
-		if (nextPipe == '|' || nextPipe == 'F' || nextPipe == '7') && y > ny {
-			return true
-		}
-
-		if (nextPipe == '-' || nextPipe == 'F' || nextPipe == 'L') && x > nx {
-			return true
-		}
-
-		return false
-		break
-	case '7':
-		if (nextPipe == '|' || nextPipe == 'J' || nextPipe == 'L') && y < ny {
-			return true
-		}
-
-		if (nextPipe == '-' || nextPipe == 'F' || nextPipe == 'L') && x > nx {
-			return true
-		}
-
-		return false
-		break
-	case 'F':
-		if (nextPipe == '|' || nextPipe == 'J' || nextPipe == 'L') && y < ny {
-			return true
-		}
-
-		if (nextPipe == '-' || nextPipe == '7' || nextPipe == 'J') && x < nx {
-			return true
-		}
-
-		return false
-		break
-	}
-
-	return true
 }
 
 func nextStep(pipe uint8, x, y, px, py int) (nx, ny int) {
@@ -227,5 +128,91 @@ func FindStartCo(maze *[]string) (int, int) {
 
 // part two
 func part2(input string) int {
-	return 0
+	maze := strings.Split(input, "\n")
+
+	sx, sy := FindStartCo(&maze)
+
+	m := calcLoopCount2(sx, sy, &maze)
+
+	maze[sy] = strings.ReplaceAll(maze[sy], "S", "7")
+	count := 0
+
+	for y := 0; y < len(maze); y++ {
+		isUp := false
+		for x := 0; x < len(maze[y]); x++ {
+			if _, ok := m[fmt.Sprintf("%d-%d", x, y)]; ok {
+				tile := maze[y][x]
+				if tile == '|' {
+					isUp = !isUp
+					continue
+				}
+
+				prevTile := tile
+
+				for xx := x + 1; xx < len(maze[y]); xx++ {
+					currTile := maze[y][xx]
+					if _, ok = m[fmt.Sprintf("%d-%d", x, y)]; ok {
+
+						if currTile != '-' {
+							if isUp && prevTile == 'L' && currTile == 'J' {
+								x = xx
+								break
+							}
+
+							if !isUp && prevTile == 'F' && currTile == '7' {
+								x = xx
+								break
+							}
+
+							if !isUp && prevTile == 'F' && currTile == 'J' {
+								isUp = true
+								x = xx
+								break
+							}
+
+							if isUp && prevTile == 'L' && currTile == '7' {
+								isUp = false
+								x = xx
+								break
+							}
+						}
+					} else {
+						isUp = true
+						break
+					}
+				}
+
+			} else if isUp {
+				count++
+			}
+		}
+	}
+
+	return count
+}
+
+func calcLoopCount2(sx, sy int, maze *[]string) map[string]struct{} {
+	count := 0
+	m := make(map[string]struct{})
+
+	px := -1
+	py := -1
+	x := sx
+	y := sy
+	m[fmt.Sprintf("%d-%d", x, y)] = struct{}{}
+	for (*maze)[y][x] != 'S' || count == 0 {
+		m[fmt.Sprintf("%d-%d", x, y)] = struct{}{}
+
+		count++
+		pipe := (*maze)[y][x]
+		tmpx := x
+		tmpy := y
+		x, y = nextStep(pipe, x, y, px, py)
+		px = tmpx
+		py = tmpy
+
+	}
+	m[fmt.Sprintf("%d-%d", x, y)] = struct{}{}
+
+	return m
 }

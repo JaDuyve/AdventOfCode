@@ -7,7 +7,7 @@ import (
 
 func TestDay10(t *testing.T) {
 
-	tests := []struct {
+	testsPart1 := []struct {
 		expectedValue int
 		input         string
 	}{
@@ -15,7 +15,7 @@ func TestDay10(t *testing.T) {
 		{8, "7-F7-\n.FJ|7\nSJLL7\n|F--J\nLJ.LJ"},
 	}
 
-	for i, tt := range tests {
+	for i, tt := range testsPart1 {
 		t.Run(fmt.Sprintf("Part 1 test %d", i), func(t *testing.T) {
 			actual := part1(tt.input)
 
@@ -25,36 +25,19 @@ func TestDay10(t *testing.T) {
 		})
 	}
 
-	t.Run("part 2", func(t *testing.T) {
-		const input string = ""
-		const expected int = 0
-		actual := part2(input)
-
-		if actual != expected {
-			t.Errorf("expected: %d, actual: %d", expected, actual)
-		}
-	})
-}
-
-func TestCalcLoopCount(t *testing.T) {
-	tests := []struct {
-		name          string
-		x             int
-		y             int
+	testsPart2 := []struct {
 		expectedValue int
-		maze          []string
+		input         string
 	}{
-		{"small loop", 1, 1, 8, []string{".....", ".F-7.", ".|.|.", ".L-J.", "....."}},
-		{"no loop 1", 0, 0, 0, []string{"7-F7-", ".FJ|7", "SJLL7", "|F--J", "LJ.LJ"}},
-		{"no loop 2", 5, 5, 0, []string{"7-F7-", ".FJ|7", "SJLL7", "|F--J", "LJ.LJ"}},
-		{"longer no loop 1", 5, 0, 0, []string{"-L|F7", "7S-7|", "L|7||", "-L-J|", "L|-JF"}},
-		//{"longer no loop 2", 2, 0, 0, []string{"-L|F7", "7S-7|", "L|7||", "-L-J|", "L|-JF"}},
-		{"complex loop", 0, 2, 16, []string{"..F7.", ".FJ|.", "FJ.L7", "|F--J", "LJ..."}},
+		{4, "...........\n.S-------7.\n.|F-----7|.\n.||.....||.\n.||.....||.\n.|L-7.F-J|.\n.|..|.|..|.\n.L--J.L--J.\n..........."},
+		{4, "..........\n.S------7.\n.|F----7|.\n.||....||.\n.||....||.\n.|L-7F-J|.\n.|..||..|.\n.L--JL--J.\n.........."},
+		{8, ".F----7F7F7F7F-7....\n.|F--7||||||||FJ....\n.||.FJ||||||||L7....\nFJL7L7LJLJ||LJ.L-7..\nL--J.L7...LJS7F-7L7.\n....F-J..F7FJ|L7L7L7\n....L7.F7||L7|.L7L7|\n.....|FJLJ|FJ|F7|.LJ\n....FJL-7.||.||||...\n....L---J.LJ.LJLJ..."},
+		{10, "FF7FSF7F7F7F7F7F---7\nL|LJ||||||||||||F--J\nFL-7LJLJ||||||LJL-77\nF--JF--7||LJLJ7F7FJ-\nL---JF-JLJ.||-FJLJJ7\n|F|F-JF---7F7-L7L|7|\n|FFJF7L7F-JF7|JL---7\n7-L-JL7||F7|L7F-7F7|\nL.L7LFJ|||||FJL7||LJ\nL7JLJL-JLJLJL--JLJ.L"},
 	}
 
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			actual := calcLoopCount(tt.x, tt.y, &tt.maze)
+	for i, tt := range testsPart2 {
+		t.Run(fmt.Sprintf("Part 2 test %d", i), func(t *testing.T) {
+			actual := part2(tt.input)
 
 			if actual != tt.expectedValue {
 				t.Errorf("expected: %d, actual: %d", tt.expectedValue, actual)

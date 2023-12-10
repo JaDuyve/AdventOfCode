@@ -132,13 +132,3 @@ type Ghost struct {
 	Cycles int
 	Key    string
 }
-
-func AnyGhostNotAtEnd(ghosts *[]Ghost) bool {
-	for _, g := range *ghosts {
-		if g.Cycles == -1 {
-			return true
-		}
-	}
-
-	return false
-}
