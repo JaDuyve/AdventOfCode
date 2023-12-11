@@ -45,3 +45,14 @@ func Sum[T Number](numbers []T) T {
 	}
 	return total
 }
+
+func Abs(x int) int {
+	if x < 0 {
+		return -x
+	}
+	return x
+}
+
+func ManhattenDistance(p1, p2 Tuple[int, int]) int {
+	return Abs(p2.A-p1.A) + Abs(p2.B-p1.B)
+}
