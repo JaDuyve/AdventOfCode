@@ -18,7 +18,7 @@ func main() {
 
 	log.Println("--- Part One ---")
 	startTime := time.Now().Local()
-	res1 := part1(input)
+	res1 := part1(input, 2)
 	us := time.Since(startTime).Microseconds()
 	log.Printf("Result: %d in %dμs\n", res1, us)
 
@@ -30,52 +30,21 @@ func main() {
 }
 
 // part one
-func part1(input string) int {
+func part1(input string, spaceMulti int) int {
+	lines := strings.Split(input, "\n")
+	data := make([][]uint8, len(lines))
+	for i := 0; i < len(lines); i++ {
+		data[i] = []byte(lines[i])
+	}
+
 	s := Space{
-		Data:     ExpandSpace(input),
+		Data:     data,
 		Galaxies: make([]utils.Tuple[int, int], 0),
 	}
-
 	s.findAllGalaxies()
+	s.Expand(spaceMulti)
 
 	return s.CalculateTotalDistance()
-}
-
-func ExpandSpace(input string) [][]uint8 {
-	galaxyInput := strings.Split(input, "\n")
-
-	width := len(galaxyInput[0])
-	for i := len(galaxyInput) - 1; i >= 0; i-- {
-		if false == strings.ContainsFunc(galaxyInput[i], func(x rune) bool {
-			return x != '.'
-		}) {
-			galaxyInput = append(galaxyInput[:i+1], galaxyInput[i:]...)
-			galaxyInput[i] = strings.Repeat(".", width)
-		}
-	}
-
-	d := make([][]uint8, len(galaxyInput))
-	for r := 0; r < len(galaxyInput); r++ {
-		d[r] = []byte(galaxyInput[r])
-	}
-
-	for x := width - 1; x >= 0; x-- {
-		found := false
-		for y := 0; y < len(d); y++ {
-			if d[y][x] != '.' {
-				found = true
-			}
-		}
-
-		if found == false {
-			for yy := 0; yy < len(d); yy++ {
-				d[yy] = append(d[yy][:x+1], d[yy][x:]...)
-				d[yy][x] = '.'
-			}
-		}
-	}
-
-	return d
 }
 
 // part two
@@ -99,17 +68,6 @@ func part2(input string, spaceMulti int) int {
 type Space struct {
 	Data     [][]uint8
 	Galaxies []utils.Tuple[int, int]
-}
-
-func (s *Space) String() string {
-	builder := strings.Builder{}
-
-	for i := 0; i < len(s.Data); i++ {
-		builder.Write(s.Data[i])
-		builder.WriteByte('\n')
-	}
-
-	return builder.String()
 }
 
 func (s *Space) findAllGalaxies() {

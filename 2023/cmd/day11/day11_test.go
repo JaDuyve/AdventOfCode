@@ -20,7 +20,7 @@ func TestDay11(t *testing.T) {
 
 	t.Run("part 1", func(t *testing.T) {
 		const expected int = 374
-		actual := part1(input)
+		actual := part1(input, 2)
 
 		if actual != expected {
 			t.Errorf("expected: %d, actual: %d", expected, actual)
